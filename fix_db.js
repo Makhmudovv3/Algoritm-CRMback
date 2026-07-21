@@ -1,0 +1,1 @@
+const { Sequelize } = require('sequelize'); const sequelize = new Sequelize('AlgoritmCRM', 'postgres', 'abdulaziz123', { host: 'localhost', dialect: 'postgres', logging: false }); (async () => { try { await sequelize.query('ALTER TABLE "Users" ADD COLUMN IF NOT EXISTS "branchId" UUID;'); console.log('Added branchId'); } catch(e) { console.log(e); } process.exit(); })();
