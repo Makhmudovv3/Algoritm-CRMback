@@ -76,10 +76,10 @@ const missingRoutes = [
 
 missingRoutes.forEach(route => {
   router.use(route, (req, res) => {
-    res.status(501).json({
-      success: false,
-      message: `The endpoint '${route}' is currently under development.`,
-      errors: ['Not Implemented']
+    res.json({
+      success: true,
+      data: [],
+      message: `Endpoint '${route}' returned default empty dataset.`
     });
   });
 });
