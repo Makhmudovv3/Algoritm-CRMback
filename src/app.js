@@ -13,9 +13,10 @@ const app = express();
 
 // Security Middlewares
 app.use(helmet());
-const allowedOrigins = process.env.FRONTEND_URL 
+const baseOrigins = process.env.FRONTEND_URL 
   ? process.env.FRONTEND_URL.split(',') 
-  : ['http://localhost:5173', 'http://localhost:5174', 'https://algoritm-cr-mfront.vercel.app'];
+  : ['http://localhost:5173', 'http://localhost:5174'];
+const allowedOrigins = [...baseOrigins, 'https://algoritm-cr-mfront.vercel.app'];
 
 app.use(cors({
   origin: function (origin, callback) {
