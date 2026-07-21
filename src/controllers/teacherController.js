@@ -211,6 +211,9 @@ class TeacherController {
   async getMaterials(req, res) {
     return successResponse(res, 'Materials', []);
   }
+  async getGradebook(req, res) {
+    return successResponse(res, 'Gradebook', { columns: [], data: {} });
+  }
   async getAllTeachers(req, res) {
     try {
       const teachers = await Teacher.findAll();
