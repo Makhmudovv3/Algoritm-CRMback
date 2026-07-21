@@ -1,4 +1,4 @@
-const BaseRepository = require('./BaseRepository');
+const BaseRepository = require('./baseRepository');
 const { SystemSetting } = require('../models');
 
 class SystemSettingRepository extends BaseRepository {

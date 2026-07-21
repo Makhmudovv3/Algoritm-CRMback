@@ -5662,3 +5662,4 @@ notNull Violation: User.roleId cannot be null
 2026-07-21 14:03:45 info: 127.0.0.1 - - [21/Jul/2026:09:03:45 +0000] "GET /health HTTP/1.1" 200 81 "-" "Go-http-client/1.1"
 2026-07-21 14:06:09 error: Unable to start server: getaddrinfo ENOTFOUND postgres.railway.internal
 2026-07-21 14:10:22 error: Unable to start server: getaddrinfo ENOTFOUND postgres.railway.internal
+2026-07-21 14:56:52 error: Unable to start server: getaddrinfo ENOTFOUND postgres.railway.internal
