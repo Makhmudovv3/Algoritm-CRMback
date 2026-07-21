@@ -31,37 +31,39 @@ class AIEngine {
       parts: [{ text: query }]
     });
 
-    try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          contents: contents,
-          systemInstruction: {
-            parts: [{ text: systemInstruction }]
+    const modelsToTry = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash-latest', 'gemini-pro'];
+
+    for (const modelName of modelsToTry) {
+      try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
           },
-          generationConfig: {
-            responseMimeType: "application/json",
-            maxOutputTokens: 1024,
-            temperature: 0.2
-          }
-        })
-      });
+          body: JSON.stringify({
+            contents: contents,
+            systemInstruction: {
+              parts: [{ text: systemInstruction }]
+            },
+            generationConfig: {
+              responseMimeType: "application/json",
+              maxOutputTokens: 1024,
+              temperature: 0.2
+            }
+          })
+        });
 
-      if (!response.ok) {
-        const errorData = await response.text();
-        console.error('Gemini API Error Response:', errorData);
-        throw new Error('Gemini API Provider returned error');
+        if (response.ok) {
+          const data = await response.json();
+          const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (rawText) return rawText;
+        } else {
+          const errorData = await response.text();
+          console.error(`Gemini API Error for model ${modelName}:`, errorData);
+        }
+      } catch (apiErr) {
+        console.error(`Gemini API Fetch Exception for ${modelName}:`, apiErr.message);
       }
-
-      const data = await response.json();
-      const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (rawText) return rawText;
-
-    } catch (apiErr) {
-      console.error('Gemini API Fetch Exception:', apiErr.message);
     }
 
     // Dynamic Fallback JSON array string

@@ -11,6 +11,9 @@ const { errorResponse } = require('./utils/response');
 
 const app = express();
 
+// Trust proxy for Railway reverse proxy / express-rate-limit
+app.set('trust proxy', 1);
+
 // Security Middlewares
 app.use(helmet());
 app.use(cors({
