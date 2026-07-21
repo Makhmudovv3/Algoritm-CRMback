@@ -1,6 +1,4 @@
 const { validationResult } = require('express-validator');
-
-const { validationResult } = require('express-validator');
 const aiEngine = require('../modules/ai/engine');
 const promptBuilder = require('../modules/ai/promptBuilder');
 const aiMemory = require('../modules/ai/memory');
