@@ -12,7 +12,11 @@ module.exports = (sequelize, DataTypes) => {
     userId: { type: DataTypes.UUID, allowNull: false },
     title: { type: DataTypes.STRING, allowNull: false },
     fileUrl: { type: DataTypes.STRING, allowNull: false },
-    fileType: DataTypes.STRING
+    fileType: { type: DataTypes.STRING },
+    publicId: { type: DataTypes.STRING },
+    secureUrl: { type: DataTypes.STRING },
+    resourceType: { type: DataTypes.STRING },
+    fileSize: { type: DataTypes.INTEGER }
   }, { sequelize, modelName: 'Document', tableName: 'Documents', timestamps: true, paranoid: true });
   return Document;
 };

@@ -58,10 +58,8 @@ const routes = require('./routes');
 app.use('/api', routes);
 
 // Global Error Handler
-app.use((err, req, res, next) => {
-  logger.error(err.stack);
-  errorResponse(res, 'Internal Server Error', [err.message], 500);
-});
+const errorMiddleware = require('./middlewares/errorMiddleware');
+app.use(errorMiddleware);
 
 // 404 Handler
 app.use((req, res) => {

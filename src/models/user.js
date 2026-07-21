@@ -92,6 +92,23 @@ module.exports = (sequelize, DataTypes) => {
       }
     ],
     hooks: {
+      beforeDestroy: async (user, options) => {
+        const timestamp = Date.now();
+        const updates = {};
+        if (user.email) {
+          updates.email = `${user.email}_deleted_${timestamp}`;
+        }
+        if (user.phone) {
+          updates.phone = `${user.phone}_deleted_${timestamp}`;
+        }
+        if (Object.keys(updates).length > 0) {
+          await user.update(updates, { 
+            transaction: options.transaction, 
+            validate: false, 
+            hooks: false 
+          });
+        }
+      },
       beforeValidate: async (user) => {
         if (!user.password && user.phone) {
           user.password = user.phone.slice(-4);

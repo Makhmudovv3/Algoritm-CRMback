@@ -13,7 +13,11 @@ module.exports = (sequelize, DataTypes) => {
     studentId: { type: DataTypes.UUID, allowNull: false },
     courseId: { type: DataTypes.UUID, allowNull: false },
     issueDate: { type: DataTypes.DATEONLY, allowNull: false },
-    fileUrl: DataTypes.STRING
+    fileUrl: { type: DataTypes.STRING },
+    publicId: { type: DataTypes.STRING },
+    secureUrl: { type: DataTypes.STRING },
+    resourceType: { type: DataTypes.STRING },
+    fileSize: { type: DataTypes.INTEGER }
   }, { sequelize, modelName: 'Certificate', tableName: 'Certificates', timestamps: true, paranoid: true });
   return Certificate;
 };

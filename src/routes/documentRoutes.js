@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const documentController = require('../controllers/documentController');
 const { verifyToken } = require('../middlewares/authMiddleware');
-const upload = require('../middlewares/uploadMiddleware');
+const { upload } = require('../middlewares/uploadMiddleware');
 
 router.use(verifyToken);
 

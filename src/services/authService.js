@@ -61,7 +61,20 @@ class AuthService {
   }
 
   async register(userData) {
-    let roleName = userData.roleName || 'STUDENT';
+    let rawRoleName = userData.roleName || 'STUDENT';
+    const ROLE_MAPPINGS = {
+      'Manager': 'BRANCH_MANAGER',
+      'CALL MARKAZ': 'CALL_CENTER',
+      'Admin': 'SUPER_ADMIN',
+      'Director': 'DIRECTOR',
+      'Teacher': 'TEACHER',
+      'Student': 'STUDENT',
+      'Parent': 'PARENT',
+      'Cashier': 'CASHIER',
+      'Accountant': 'ACCOUNTANT'
+    };
+    let roleName = ROLE_MAPPINGS[rawRoleName] || rawRoleName.toUpperCase();
+    
     let role = await roleRepository.findByName(roleName);
     
     if (!role) {

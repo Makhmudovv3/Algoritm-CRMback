@@ -14,8 +14,8 @@ const options = {
         description: 'Production server (Railway)',
       },
       {
-        url: 'http://localhost:3000/api',
-        description: 'Development server',
+        url: process.env.API_URL || 'http://localhost:3000/api',
+        description: 'Current Environment API'
       },
     ],
     components: {
