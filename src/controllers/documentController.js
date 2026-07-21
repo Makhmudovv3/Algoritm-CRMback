@@ -11,7 +11,7 @@ class DocumentController extends BaseController {
     try {
       const data = { ...req.body };
       if (req.file) {
-        data.fileUrl = `/uploads/${req.file.filename}`;
+        data.fileUrl = req.file.path || req.file.secure_url || req.file.url || `/uploads/${req.file.filename}`;
       }
       const record = await this.service.create(data, req.user?.id, req.ip);
       return successResponse(res, `Document created successfully`, record, {}, 201);
@@ -24,11 +24,19 @@ class DocumentController extends BaseController {
     try {
       const document = await this.service.getById(req.params.id);
       if (document && document.fileUrl) {
-        const fs = require('fs');
-        const path = require('path');
-        const filePath = path.join(__dirname, '../..', document.fileUrl);
-        if (fs.existsSync(filePath)) {
-          fs.unlinkSync(filePath);
+        if (document.fileUrl.startsWith('http')) {
+          const { deleteFromCloudinary } = require('../config/cloudinary');
+          const parts = document.fileUrl.split('/');
+          const filename = parts[parts.length - 1];
+          const publicId = `algoritm-crm/${filename.split('.')[0]}`;
+          await deleteFromCloudinary(publicId);
+        } else {
+          const fs = require('fs');
+          const path = require('path');
+          const filePath = path.join(__dirname, '../..', document.fileUrl);
+          if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+          }
         }
       }
       await this.service.delete(req.params.id, req.user?.id, req.ip);
