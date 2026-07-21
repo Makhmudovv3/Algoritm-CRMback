@@ -11,9 +11,16 @@ class AIEngine {
     // Convert history into gemini format
     if (historyContext && historyContext.length > 0) {
       for (const msg of historyContext) {
+        let textContent = '';
+        if (typeof msg.content === 'string') {
+          textContent = msg.content;
+        } else if (msg.content && typeof msg.content === 'object') {
+          textContent = JSON.stringify(msg.content);
+        }
+        
         contents.push({
           role: msg.role === 'user' ? 'user' : 'model',
-          parts: [{ text: msg.content }]
+          parts: [{ text: textContent || ' ' }]
         });
       }
     }
