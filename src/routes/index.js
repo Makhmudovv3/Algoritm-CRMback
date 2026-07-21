@@ -27,7 +27,6 @@ const notificationRoutes = require('./notificationRoutes');
 const certificateRoutes = require('./certificateRoutes');
 const eventRoutes = require('./eventRoutes');
 const taskRoutes = require('./taskRoutes');
-
 const searchRoutes = require('./searchRoutes');
 const dashboardRoutes = require('./dashboardRoutes');
 
@@ -61,6 +60,7 @@ router.use('/messages', messageRoutes);
 router.use('/notifications', notificationRoutes);
 router.use('/certificates', certificateRoutes);
 router.use('/tasks', taskRoutes);
+router.use('/teacher', teacherRoutes);
 
 router.use('/', callcenterRoutes);
 
