@@ -53,7 +53,8 @@ class BaseController {
       return successResponse(res, `${this.entityName} created successfully`, record, {}, 201);
     } catch (error) {
       logger.error(`Error in ${this.entityName} create: ${error.message}`);
-      return errorResponse(res, `Failed to create ${this.entityName.toLowerCase()}`, [error.message], 400);
+      const errorDetails = error.errors ? error.errors.map(e => e.message) : [error.message];
+      return errorResponse(res, `Failed to create ${this.entityName.toLowerCase()}`, errorDetails, 400);
     }
   };
 
@@ -72,7 +73,8 @@ class BaseController {
       return successResponse(res, `${this.entityName} updated successfully`, record);
     } catch (error) {
       logger.error(`Error in ${this.entityName} update: ${error.message}`);
-      return errorResponse(res, `Failed to update ${this.entityName.toLowerCase()}`, [error.message], 400);
+      const errorDetails = error.errors ? error.errors.map(e => e.message) : [error.message];
+      return errorResponse(res, `Failed to update ${this.entityName.toLowerCase()}`, errorDetails, 400);
     }
   };
 
