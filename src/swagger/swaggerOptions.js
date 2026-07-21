@@ -10,6 +10,10 @@ const options = {
     },
     servers: [
       {
+        url: 'https://algoritm-crmback-production.up.railway.app/api',
+        description: 'Production server (Railway)',
+      },
+      {
         url: 'http://localhost:3000/api',
         description: 'Development server',
       },
