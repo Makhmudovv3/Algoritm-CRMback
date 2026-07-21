@@ -66,6 +66,33 @@ const startServer = async () => {
       logger.error('Failed to auto-create super admin:', err);
     }
 
+    // Fix existing soft-deleted users to append timestamp to unique fields
+    try {
+      const { Op } = require('sequelize');
+      const deletedUsers = await User.findAll({ 
+        where: { deletedAt: { [Op.not]: null } }, 
+        paranoid: false 
+      });
+      
+      for (const du of deletedUsers) {
+        let changed = false;
+        if (du.phone && !String(du.phone).includes('_deleted_')) {
+          du.phone = `${du.phone}_deleted_${Date.now()}`;
+          changed = true;
+        }
+        if (du.email && !String(du.email).includes('_deleted_')) {
+          du.email = `${du.email}_deleted_${Date.now()}`;
+          changed = true;
+        }
+        if (changed) {
+          await du.save({ validate: false, hooks: false, paranoid: false });
+        }
+      }
+      logger.info('Cleaned up deleted users unique constraints.');
+    } catch (err) {
+      logger.error('Failed to clean up deleted users:', err);
+    }
+
     server.listen(PORT, '0.0.0.0', () => {
       logger.info(`Server is running on port ${PORT}`);
     });
