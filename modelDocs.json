@@ -1,0 +1,546 @@
+[
+  {
+    "name": "Attendance",
+    "attributes": [
+      "id",
+      "lessonId",
+      "studentId",
+      "status",
+      "notes",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo Lesson (as lesson)",
+      "BelongsTo Student (as student)"
+    ]
+  },
+  {
+    "name": "AuditLog",
+    "attributes": [
+      "id",
+      "userId",
+      "action",
+      "entity",
+      "entityId",
+      "ipAddress",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo User (as user)"
+    ]
+  },
+  {
+    "name": "Branch",
+    "attributes": [
+      "id",
+      "name",
+      "address",
+      "phone",
+      "isActive",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "HasMany Room (as rooms)",
+      "HasMany Teacher (as teachers)",
+      "HasMany Student (as students)",
+      "HasMany Lead (as leads)",
+      "HasMany Group (as groups)"
+    ]
+  },
+  {
+    "name": "Certificate",
+    "attributes": [
+      "id",
+      "studentId",
+      "courseId",
+      "issueDate",
+      "fileUrl",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo Student (as student)",
+      "BelongsTo Course (as course)"
+    ]
+  },
+  {
+    "name": "Course",
+    "attributes": [
+      "id",
+      "name",
+      "description",
+      "price",
+      "durationMonths",
+      "isActive",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "HasMany Group (as groups)",
+      "HasMany Lead (as leads)"
+    ]
+  },
+  {
+    "name": "Discount",
+    "attributes": [
+      "id",
+      "name",
+      "percentage",
+      "description",
+      "isActive",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "HasMany Grant (as grants)"
+    ]
+  },
+  {
+    "name": "Document",
+    "attributes": [
+      "id",
+      "userId",
+      "title",
+      "fileUrl",
+      "fileType",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo User (as user)"
+    ]
+  },
+  {
+    "name": "Event",
+    "attributes": [
+      "id",
+      "title",
+      "description",
+      "type",
+      "startDate",
+      "endDate",
+      "allDay",
+      "color",
+      "location",
+      "ownerId",
+      "ownerType",
+      "branchId",
+      "createdBy",
+      "status",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": []
+  },
+  {
+    "name": "Grant",
+    "attributes": [
+      "id",
+      "studentId",
+      "discountId",
+      "reason",
+      "status",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo Student (as student)",
+      "BelongsTo Discount (as discount)"
+    ]
+  },
+  {
+    "name": "Group",
+    "attributes": [
+      "id",
+      "name",
+      "courseId",
+      "teacherId",
+      "roomId",
+      "branchId",
+      "schedule",
+      "status",
+      "startDate",
+      "endDate",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo Course (as course)",
+      "BelongsTo Teacher (as teacher)",
+      "BelongsTo Room (as room)",
+      "BelongsTo Branch (as branch)"
+    ]
+  },
+  {
+    "name": "Invoice",
+    "attributes": [
+      "id",
+      "studentId",
+      "groupId",
+      "amount",
+      "dueDate",
+      "status",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo Student (as student)",
+      "BelongsTo Group (as group)",
+      "HasMany Payment (as payments)"
+    ]
+  },
+  {
+    "name": "Lead",
+    "attributes": [
+      "id",
+      "firstName",
+      "lastName",
+      "phone",
+      "source",
+      "status",
+      "courseId",
+      "branchId",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo Course (as course)",
+      "BelongsTo Branch (as branch)"
+    ]
+  },
+  {
+    "name": "Lesson",
+    "attributes": [
+      "id",
+      "groupId",
+      "teacherId",
+      "date",
+      "topic",
+      "status",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo Group (as group)",
+      "BelongsTo Teacher (as teacher)",
+      "HasMany Attendance (as attendances)"
+    ]
+  },
+  {
+    "name": "Message",
+    "attributes": [
+      "id",
+      "senderId",
+      "receiverId",
+      "content",
+      "isRead",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo User (as sender)",
+      "BelongsTo User (as receiver)"
+    ]
+  },
+  {
+    "name": "Notification",
+    "attributes": [
+      "id",
+      "userId",
+      "title",
+      "content",
+      "type",
+      "priority",
+      "category",
+      "isRead",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo User (as user)"
+    ]
+  },
+  {
+    "name": "Parent",
+    "attributes": [
+      "id",
+      "userId",
+      "additionalPhone",
+      "occupation",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo User (as user)",
+      "HasMany Student (as students)"
+    ]
+  },
+  {
+    "name": "Payment",
+    "attributes": [
+      "id",
+      "invoiceId",
+      "studentId",
+      "amount",
+      "paymentMethod",
+      "transactionId",
+      "status",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo Invoice (as invoice)",
+      "BelongsTo Student (as student)"
+    ]
+  },
+  {
+    "name": "Permission",
+    "attributes": [
+      "id",
+      "name",
+      "module",
+      "createdAt",
+      "updatedAt"
+    ],
+    "associations": [
+      "BelongsToMany Role (as roles)"
+    ]
+  },
+  {
+    "name": "Role",
+    "attributes": [
+      "id",
+      "name",
+      "description",
+      "createdAt",
+      "updatedAt"
+    ],
+    "associations": [
+      "HasMany User (as users)",
+      "BelongsToMany Permission (as permissions)"
+    ]
+  },
+  {
+    "name": "Room",
+    "attributes": [
+      "id",
+      "name",
+      "capacity",
+      "branchId",
+      "isActive",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo Branch (as branch)",
+      "HasMany Group (as groups)"
+    ]
+  },
+  {
+    "name": "Schedule",
+    "attributes": [
+      "id",
+      "groupId",
+      "dayOfWeek",
+      "startTime",
+      "endTime",
+      "roomId",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo Group (as group)",
+      "BelongsTo Room (as room)"
+    ]
+  },
+  {
+    "name": "Student",
+    "attributes": [
+      "id",
+      "userId",
+      "parentId",
+      "branchId",
+      "dateOfBirth",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo User (as user)",
+      "BelongsTo Parent (as parent)",
+      "BelongsTo Branch (as branch)"
+    ]
+  },
+  {
+    "name": "SystemSetting",
+    "attributes": [
+      "id",
+      "category",
+      "key",
+      "value",
+      "defaultValue",
+      "description",
+      "type",
+      "options",
+      "updatedBy",
+      "createdAt",
+      "updatedAt"
+    ],
+    "associations": [
+      "BelongsTo User (as updater)"
+    ]
+  },
+  {
+    "name": "Teacher",
+    "attributes": [
+      "id",
+      "userId",
+      "branchId",
+      "salaryPerStudent",
+      "specialties",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo User (as user)",
+      "BelongsTo Branch (as branch)",
+      "HasMany Group (as groups)"
+    ]
+  },
+  {
+    "name": "User",
+    "attributes": [
+      "id",
+      "firstName",
+      "lastName",
+      "email",
+      "password",
+      "phone",
+      "roleId",
+      "branchId",
+      "isActive",
+      "mustChangePassword",
+      "lastLogin",
+      "passwordChangedAt",
+      "createdAt",
+      "updatedAt",
+      "deletedAt"
+    ],
+    "associations": [
+      "BelongsTo Role (as role)",
+      "BelongsTo Branch (as branch)"
+    ]
+  },
+  {
+    "name": "AgentStatus",
+    "attributes": [
+      "id",
+      "user_id",
+      "status",
+      "last_activity",
+      "createdAt",
+      "updatedAt"
+    ],
+    "associations": [
+      "BelongsTo User (as user)"
+    ]
+  },
+  {
+    "name": "Call",
+    "attributes": [
+      "id",
+      "call_sid",
+      "caller_name",
+      "phone",
+      "customer_id",
+      "operator_id",
+      "branch_id",
+      "lead_id",
+      "direction",
+      "status",
+      "duration",
+      "started_at",
+      "ended_at",
+      "recording_url",
+      "result",
+      "notes",
+      "createdAt",
+      "updatedAt"
+    ],
+    "associations": [
+      "BelongsTo User (as operator)",
+      "BelongsTo Branch (as branch)",
+      "BelongsTo Student (as customer)",
+      "BelongsTo Lead (as lead)",
+      "HasMany CallNote (as notes_list)",
+      "HasOne FollowUp (as follow_up)"
+    ]
+  },
+  {
+    "name": "CallNote",
+    "attributes": [
+      "id",
+      "call_id",
+      "user_id",
+      "note",
+      "createdAt",
+      "updatedAt"
+    ],
+    "associations": [
+      "BelongsTo Call (as call)",
+      "BelongsTo User (as user)"
+    ]
+  },
+  {
+    "name": "FollowUp",
+    "attributes": [
+      "id",
+      "call_id",
+      "customer_id",
+      "assigned_to",
+      "follow_up_date",
+      "status",
+      "notes",
+      "createdAt",
+      "updatedAt"
+    ],
+    "associations": [
+      "BelongsTo Call (as call)",
+      "BelongsTo Student (as customer)",
+      "BelongsTo User (as assignee)"
+    ]
+  },
+  {
+    "name": "RolePermissions",
+    "attributes": [
+      "createdAt",
+      "updatedAt",
+      "permissionId",
+      "roleId"
+    ],
+    "associations": []
+  }
+]

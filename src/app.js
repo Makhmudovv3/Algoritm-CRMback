@@ -13,8 +13,18 @@ const app = express();
 
 // Security Middlewares
 app.use(helmet());
+const allowedOrigins = process.env.FRONTEND_URL 
+  ? process.env.FRONTEND_URL.split(',') 
+  : ['http://localhost:5173', 'http://localhost:5174'];
+
 app.use(cors({
-  origin: [process.env.FRONTEND_URL || 'http://localhost:5173', 'http://localhost:5174'],
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
 }));
 
@@ -36,8 +46,14 @@ app.use('/api', limiter);
 app.use(morgan('combined', { stream: { write: message => logger.info(message.trim()) } }));
 
 // Health Check
-app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'UP', message: 'JustFiveCRM Backend is running' });
+const { sequelize } = require('./models');
+app.get('/health', async (req, res) => {
+  try {
+    await sequelize.authenticate();
+    res.status(200).json({ status: 'UP', message: 'JustFiveCRM Backend is running, Database is connected' });
+  } catch (error) {
+    res.status(503).json({ status: 'DOWN', message: 'Database connection failed', error: error.message });
+  }
 });
 
 const swaggerUi = require('swagger-ui-express');

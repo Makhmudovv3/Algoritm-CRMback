@@ -1,0 +1,602 @@
+[
+  {
+    "method": "POST",
+    "route": "/batch",
+    "file": "attendanceRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "attendanceRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "attendanceRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "attendanceRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "attendanceRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "attendanceRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/register",
+    "file": "authRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/login",
+    "file": "authRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/refresh",
+    "file": "authRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/me",
+    "file": "authRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "branchRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "branchRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "branchRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "branchRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "branchRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "certificateRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "certificateRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "certificateRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "certificateRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "certificateRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "courseRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "courseRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "courseRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "courseRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "courseRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "dashboardRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "discountRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "discountRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "discountRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "discountRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "discountRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "documentRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "documentRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "documentRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "documentRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "documentRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "eventRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "eventRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "eventRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "eventRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "eventRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "grantRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "grantRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "grantRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "grantRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "grantRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "groupRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "groupRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "groupRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "groupRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "groupRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "invoiceRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "invoiceRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "invoiceRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "invoiceRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "invoiceRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "leadRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "leadRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "leadRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "leadRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "leadRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "lessonRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "lessonRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "lessonRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "lessonRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "lessonRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "messageRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "messageRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "messageRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "messageRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "messageRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "notificationRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "notificationRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "notificationRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "notificationRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "notificationRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "parentRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "parentRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "parentRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "parentRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "parentRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "paymentRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "paymentRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "paymentRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "paymentRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "paymentRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "roleRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "roleRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "roleRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "roleRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "roleRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "roomRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "roomRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "roomRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "roomRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "roomRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "scheduleRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "scheduleRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "scheduleRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "scheduleRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "scheduleRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "searchRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "settings.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:category",
+    "file": "settings.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:category",
+    "file": "settings.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "studentRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "studentRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "studentRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "studentRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "studentRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "teacherRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "teacherRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "teacherRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "teacherRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "teacherRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/",
+    "file": "userRoutes.js"
+  },
+  {
+    "method": "GET",
+    "route": "/:id",
+    "file": "userRoutes.js"
+  },
+  {
+    "method": "POST",
+    "route": "/",
+    "file": "userRoutes.js"
+  },
+  {
+    "method": "PUT",
+    "route": "/:id",
+    "file": "userRoutes.js"
+  },
+  {
+    "method": "DELETE",
+    "route": "/:id",
+    "file": "userRoutes.js"
+  }
+]

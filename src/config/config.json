@@ -1,0 +1,25 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "GMqWcWsrrKjXVXRdajTfTgqPsKUiIQUa",
+    "database": "railway",
+    "host": "postgres.railway.internal",
+    "port": "5432",
+    "dialect": "postgres",
+    "logging": false
+  },
+  "test": {
+    "username": "postgres",
+    "password": "GMqWcWsrrKjXVXRdajTfTgqPsKUiIQUa",
+    "database": "railway",
+    "host": "postgres.railway.internal",
+    "port": "5432",
+    "dialect": "postgres",
+    "logging": false
+  },
+  "production": {
+    "dialect": "sqlite",
+    "storage": "./test.sqlite",
+    "logging": false
+  }
+}
