@@ -15,7 +15,7 @@ const app = express();
 app.use(helmet());
 const allowedOrigins = process.env.FRONTEND_URL 
   ? process.env.FRONTEND_URL.split(',') 
-  : ['http://localhost:5173', 'http://localhost:5174'];
+  : ['http://localhost:5173', 'http://localhost:5174', 'https://algoritm-cr-mfront.vercel.app'];
 
 app.use(cors({
   origin: function (origin, callback) {
