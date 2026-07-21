@@ -32,6 +32,7 @@ const dashboardRoutes = require('./dashboardRoutes');
 
 const callcenterRoutes = require('../modules/callcenter/routes');
 const settingsRoutes = require('./settings');
+const aiRoutes = require('./aiRoutes');
 
 router.use('/auth', authRoutes);
 router.use('/dashboard', dashboardRoutes);
@@ -62,6 +63,7 @@ router.use('/certificates', certificateRoutes);
 router.use('/', callcenterRoutes);
 
 router.use('/settings', settingsRoutes);
+router.use('/ai', aiRoutes);
 
 // Placeholder for unmapped frontend repositories returning HTTP 501 Not Implemented
 const missingRoutes = [
