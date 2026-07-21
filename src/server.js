@@ -42,6 +42,30 @@ const startServer = async () => {
     await sequelize.authenticate();
     logger.info('Database connection has been established successfully.');
 
+    // Auto-create super admin
+    const { Role, User } = require('./models');
+    try {
+      let superAdminRole = await Role.findOne({ where: { name: 'SUPER_ADMIN' } });
+      if (!superAdminRole) {
+        superAdminRole = await Role.create({ name: 'SUPER_ADMIN', description: 'System Administrator' });
+      }
+      
+      const phone = '998909086434';
+      const existingAdmin = await User.findOne({ where: { phone } });
+      if (!existingAdmin) {
+        await User.create({
+          firstName: 'Super',
+          lastName: 'Admin',
+          phone: phone,
+          password: '6434',
+          roleId: superAdminRole.id
+        });
+        logger.info('Super Admin created successfully with phone: ' + phone);
+      }
+    } catch (err) {
+      logger.error('Failed to auto-create super admin:', err);
+    }
+
     server.listen(PORT, '0.0.0.0', () => {
       logger.info(`Server is running on port ${PORT}`);
     });
