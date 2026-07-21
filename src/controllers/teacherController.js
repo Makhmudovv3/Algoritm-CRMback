@@ -211,8 +211,14 @@ class TeacherController {
   async getMaterials(req, res) {
     return successResponse(res, 'Materials', []);
   }
-  async getGradebook(req, res) {
-    return successResponse(res, 'Gradebook', { columns: [], data: {} });
+  async getAllTeachers(req, res) {
+    try {
+      const teachers = await Teacher.findAll();
+      return successResponse(res, 'Teachers list', teachers);
+    } catch (err) {
+      logger.error('Error in getAllTeachers:', err);
+      return successResponse(res, 'Teachers list', []);
+    }
   }
 }
 

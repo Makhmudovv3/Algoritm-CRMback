@@ -7,6 +7,9 @@ const { auth } = require('../middlewares/authMiddleware'); // assuming we have a
 // Note: apply auth and role middleware later to secure these endpoints
 // router.use(auth, checkRole(['TEACHER', 'SUPER_ADMIN']));
 
+// Get all teachers
+router.get('/', teacherController.getAllTeachers);
+
 // Dashboard Stats
 router.get('/dashboard/stats', teacherController.getDashboardStats);
 router.get('/dashboard/schedule', teacherController.getDashboardSchedule);
