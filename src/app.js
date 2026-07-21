@@ -14,13 +14,17 @@ const app = express();
 // Trust proxy for Railway reverse proxy / express-rate-limit
 app.set('trust proxy', 1);
 
-// Security Middlewares
-app.use(helmet());
+// Security & CORS Middlewares
 app.use(cors({
-  origin: function (origin, callback) {
-    callback(null, true);
-  },
+  origin: true,
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin']
+}));
+app.options('*', cors());
+
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 
 // Request parsing
