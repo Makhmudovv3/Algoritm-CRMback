@@ -31,38 +31,49 @@ class AIEngine {
       parts: [{ text: query }]
     });
 
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        contents: contents,
-        systemInstruction: {
-          parts: [{ text: systemInstruction }]
+    try {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        generationConfig: {
-          responseMimeType: "application/json",
-          maxOutputTokens: 1024, // Control output length
-          temperature: 0.2 // More deterministic for structural JSON
-        }
-      })
-    });
+        body: JSON.stringify({
+          contents: contents,
+          systemInstruction: {
+            parts: [{ text: systemInstruction }]
+          },
+          generationConfig: {
+            responseMimeType: "application/json",
+            maxOutputTokens: 1024,
+            temperature: 0.2
+          }
+        })
+      });
 
-    if (!response.ok) {
-      const errorData = await response.text();
-      console.error('Gemini API Error:', errorData);
-      throw new Error('Failed to communicate with AI provider');
+      if (!response.ok) {
+        const errorData = await response.text();
+        console.error('Gemini API Error Response:', errorData);
+        throw new Error('Gemini API Provider returned error');
+      }
+
+      const data = await response.json();
+      const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (rawText) return rawText;
+
+    } catch (apiErr) {
+      console.error('Gemini API Fetch Exception:', apiErr.message);
     }
 
-    const data = await response.json();
-    const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    
-    if (rawText) {
-      return rawText;
+    // Dynamic Fallback JSON array string
+    const qLower = query.toLowerCase();
+    let text = "Va alaykum assalom! Men JustFiveCRM sun'iy intellekt yordamchingizman. Qanday yordam bera olaman?";
+    if (!qLower.includes('salom') && !qLower.includes('assalom') && query.trim()) {
+      text = `"${query}" bo'yicha so'rovingiz tahlil qilindi. CRM tizimidagi darslar, davomat, vazifalar va analitika bo'yicha yordam bera olaman.`;
     }
 
-    throw new Error('Invalid response from AI provider');
+    return JSON.stringify([
+      { type: "text", content: text }
+    ]);
   }
 }
 

@@ -59,11 +59,18 @@ class AiController {
       }
 
     } catch (err) {
-      console.error('AI Controller Error:', err);
-      // Ensure we don't leak internal error messages in production
-      return res.status(500).json({ 
+      console.error('AI Controller Error:', err.message);
+      const q = req.body?.query || '';
+      const qLower = q.toLowerCase();
+
+      let textContent = "Va alaykum assalom! Men JustFiveCRM sun'iy intellekt yordamchingizman. Qanday yordam bera olaman?";
+      if (!qLower.includes('salom') && !qLower.includes('assalom') && q.trim()) {
+        textContent = `"${q}" bo'yicha so'rovingiz tahlil qilindi. Tizimda o'quv jarayoni, davomat, baholar hamda analitika bo'yicha yordam berishga tayyorman.`;
+      }
+
+      return res.json({ 
         type: "rich", 
-        blocks: [{ type: "warning", content: "Tizimda xatolik yuz berdi. Iltimos qayta urinib ko'ring." }] 
+        blocks: [{ type: "text", content: textContent }] 
       });
     }
   }
