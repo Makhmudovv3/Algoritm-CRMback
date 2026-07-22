@@ -12,10 +12,21 @@ class BaseController {
       const query = { ...req.query };
       // Apply branch isolation for managers
       if (req.user && (req.user.role === 'Manager' || req.user.role === 'BRANCH_MANAGER') && req.user.branchId) {
-        query.branchId = req.user.branchId;
-        if (!this.allowedFilters) this.allowedFilters = [];
-        if (!this.allowedFilters.includes('branchId')) {
-          this.allowedFilters.push('branchId');
+        if (this.entityName === 'Branch') {
+          query.id = req.user.branchId;
+          if (!this.allowedFilters) this.allowedFilters = [];
+          if (!this.allowedFilters.includes('id')) {
+            this.allowedFilters.push('id');
+          }
+        } else {
+          const model = this.service?.repository?.model;
+          if (model && model.rawAttributes && model.rawAttributes.branchId) {
+            query.branchId = req.user.branchId;
+            if (!this.allowedFilters) this.allowedFilters = [];
+            if (!this.allowedFilters.includes('branchId')) {
+              this.allowedFilters.push('branchId');
+            }
+          }
         }
       }
       
@@ -41,7 +52,16 @@ class BaseController {
 
   create = async (req, res) => {
     try {
-      const record = await this.service.create(req.body, req.user?.id, req.ip);
+      const payload = { ...req.body };
+      if (req.user && (req.user.role === 'Manager' || req.user.role === 'BRANCH_MANAGER') && req.user.branchId) {
+        if (this.entityName !== 'Branch') {
+          const model = this.service?.repository?.model;
+          if (model && model.rawAttributes && model.rawAttributes.branchId) {
+            payload.branchId = req.user.branchId;
+          }
+        }
+      }
+      const record = await this.service.create(payload, req.user?.id, req.ip);
       const io = req.app.get('io');
       const notificationService = require('../services/notificationService');
       await notificationService.notifyAdmins(io, {
