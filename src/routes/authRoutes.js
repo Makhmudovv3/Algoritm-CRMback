@@ -19,5 +19,13 @@ router.get('/sessions', verifyToken, authController.getSessions);
 router.post('/sessions/logout-all', verifyToken, authController.logoutAll);
 router.delete('/sessions/:id', verifyToken, authController.logoutDevice);
 
+
+// Standard CRUD
+router.get('/', authController.getAll);
+router.get('/:id', authController.getById);
+router.post('/', authController.create);
+router.put('/:id', authController.update);
+router.delete('/:id', authController.delete);
+
 module.exports = router;
 

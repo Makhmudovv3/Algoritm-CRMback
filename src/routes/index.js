@@ -66,6 +66,10 @@ router.use('/', callcenterRoutes);
 
 router.use('/settings', settingsRoutes);
 router.use('/ai', aiRoutes);
+const reportRoutes = require('./reportRoutes');
+router.use('/reports', reportRoutes);
+const fileRoutes = require('./fileRoutes');
+router.use('/files', fileRoutes);
 
 const auditRoutes = require('./auditRoutes');
 const callLogRoutes = require('./callLogRoutes');

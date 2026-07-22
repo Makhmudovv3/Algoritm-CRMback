@@ -57,6 +57,10 @@ app.use(xss());
 // Compression
 app.use(compression());
 
+// Serve static files (uploads)
+const path = require('path');
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes

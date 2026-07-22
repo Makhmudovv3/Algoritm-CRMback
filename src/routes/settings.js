@@ -1,23 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const systemSettingController = require('../controllers/systemSettingController');
+const settingsController = require('../controllers/SettingsController');
 const { verifyToken, verifyRole } = require('../middlewares/authMiddleware');
 
-// Apply authentication to all settings routes
-router.use(verifyToken);
-
-// GET routes available to all authenticated users (or restrict as needed)
-router.get('/', systemSettingController.getAll);
-router.get('/:category', systemSettingController.getByCategory);
-
-// PUT routes restricted to SUPER_ADMIN only
-router.put('/:category', verifyRole(['SUPER_ADMIN']), systemSettingController.updateCategory);
-
-/**
- * @swagger
- * tags:
- *   name: Settings
- *   description: System settings management
- */
+router.get('/', verifyToken, settingsController.getSettings);
+router.get('/:id', verifyToken, settingsController.getById);
+router.post('/', verifyToken, verifyRole(['SUPER_ADMIN']), settingsController.create);
+router.put('/:key', verifyToken, verifyRole(['SUPER_ADMIN']), settingsController.updateSetting);
+router.delete('/:id', verifyToken, verifyRole(['SUPER_ADMIN']), settingsController.delete);
 
 module.exports = router;

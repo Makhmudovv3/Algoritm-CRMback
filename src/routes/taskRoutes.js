@@ -5,9 +5,11 @@ const { verifyToken } = require('../middlewares/authMiddleware');
 
 router.use(verifyToken); // All task routes require authentication
 
-router.get('/', taskController.getTasks);
-router.post('/', taskController.createTask);
+router.get('/', taskController.getAll);
+router.get('/:id', taskController.getById);
+router.post('/', taskController.create);
+router.put('/:id', taskController.update);
 router.patch('/:id/toggle', taskController.toggleTask);
-router.delete('/:id', taskController.deleteTask);
+router.delete('/:id', taskController.delete);
 
 module.exports = router;

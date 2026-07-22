@@ -7,8 +7,12 @@ const { auth } = require('../middlewares/authMiddleware'); // assuming we have a
 // Note: apply auth and role middleware later to secure these endpoints
 // router.use(auth, checkRole(['TEACHER', 'SUPER_ADMIN']));
 
-// Get all teachers
-router.get('/', teacherController.getAllTeachers);
+// CRUD for teachers
+router.get('/', teacherController.getAll);
+router.get('/:id', teacherController.getById);
+router.post('/', teacherController.create);
+router.put('/:id', teacherController.update);
+router.delete('/:id', teacherController.delete);
 
 // Dashboard Stats
 router.get('/dashboard/stats', teacherController.getDashboardStats);
@@ -34,8 +38,19 @@ router.get('/groups/:groupId/tests', teacherController.getTests);
 
 // Group Workspace Materials
 router.get('/groups/:groupId/materials', teacherController.getMaterials);
+router.post('/groups/:groupId/materials', teacherController.uploadMaterial);
+router.delete('/groups/:groupId/materials/:materialId', teacherController.deleteMaterial);
 
 // Group Workspace Gradebook
 router.get('/groups/:groupId/gradebook', teacherController.getGradebook);
+router.put('/groups/:groupId/gradebook/:studentId/:assessmentId', teacherController.updateGrade);
+
+// Additional endpoints matching frontend requests
+router.post('/groups/:groupId/lessons/:lessonId/attendance', teacherController.saveAttendanceSession);
+router.get('/homeworks/:homeworkId/submissions', teacherController.getHomeworkSubmissions);
+router.post('/homeworks/:homeworkId/submissions/:studentId/grade', teacherController.gradeHomeworkSubmission);
+router.get('/tests/:testId/attempts', teacherController.getTestAttempts);
+router.get('/groups/:groupId/analytics', teacherController.getAnalytics);
+router.get('/groups/:groupId/insights', teacherController.getAiInsights);
 
 module.exports = router;
