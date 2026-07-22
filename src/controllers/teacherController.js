@@ -325,7 +325,42 @@ class TeacherController {
 
   async create(req, res) {
     try {
-      const teacher = await Teacher.create(req.body);
+      const { fullname, phone, email, branch_id, is_active } = req.body;
+      const { User, Role } = require('../models');
+      const bcrypt = require('bcryptjs');
+
+      // Find or create User
+      let user = await User.findOne({ where: { phone } });
+      if (!user) {
+        const role = await Role.findOne({ where: { name: 'TEACHER' } });
+        let firstName = fullname || '';
+        let lastName = '';
+        if (fullname && fullname.includes(' ')) {
+           const parts = fullname.split(' ');
+           firstName = parts[0];
+           lastName = parts.slice(1).join(' ');
+        }
+        
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash('123456', salt);
+
+        user = await User.create({
+          firstName,
+          lastName,
+          phone,
+          email: email || null,
+          password: hashedPassword,
+          roleId: role ? role.id : null,
+          branchId: branch_id || null,
+          isActive: is_active !== false
+        });
+      }
+
+      const teacher = await Teacher.create({
+        userId: user.id,
+        branchId: branch_id || null
+      });
+
       return successResponse(res, 'Teacher created', teacher, {}, 201);
     } catch (err) {
       logger.error('Error in create:', err);
@@ -335,9 +370,38 @@ class TeacherController {
 
   async update(req, res) {
     try {
+      const { fullname, phone, email, branch_id, is_active } = req.body;
       const teacher = await Teacher.findByPk(req.params.id);
       if (!teacher) return errorResponse(res, 'Teacher not found', [], 404);
-      await teacher.update(req.body);
+
+      const { User } = require('../models');
+      const user = await User.findByPk(teacher.userId);
+      
+      if (user) {
+        let firstName = user.firstName;
+        let lastName = user.lastName;
+        if (fullname) {
+           if (fullname.includes(' ')) {
+             const parts = fullname.split(' ');
+             firstName = parts[0];
+             lastName = parts.slice(1).join(' ');
+           } else {
+             firstName = fullname;
+             lastName = '';
+           }
+        }
+        
+        await user.update({
+          firstName,
+          lastName,
+          phone: phone || user.phone,
+          email: email !== undefined ? email : user.email,
+          branchId: branch_id || user.branchId,
+          isActive: is_active !== undefined ? (is_active === 'true' || is_active === true) : user.isActive
+        });
+      }
+
+      await teacher.update({ branchId: branch_id || teacher.branchId });
       return successResponse(res, 'Teacher updated', teacher);
     } catch (err) {
       logger.error('Error in update:', err);
@@ -349,6 +413,13 @@ class TeacherController {
     try {
       const teacher = await Teacher.findByPk(req.params.id);
       if (!teacher) return errorResponse(res, 'Teacher not found', [], 404);
+      
+      const { User } = require('../models');
+      if (teacher.userId) {
+        const user = await User.findByPk(teacher.userId);
+        if (user) await user.destroy();
+      }
+
       await teacher.destroy();
       return successResponse(res, 'Teacher deleted', {});
     } catch (err) {
