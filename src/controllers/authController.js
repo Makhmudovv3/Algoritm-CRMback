@@ -29,7 +29,7 @@ class AuthController {
     });
   }
 
-  async login(req, res) {
+  login = async (req, res) => {
     try {
       const { phone, password, captchaToken } = req.body;
       const userAgent = {
@@ -53,7 +53,7 @@ class AuthController {
     }
   }
 
-  async register(req, res) {
+  register = async (req, res) => {
     try {
       const data = await authService.register(req.body);
       this.setCookies(res, { accessToken: data.accessToken, refreshToken: data.refreshToken });
@@ -64,7 +64,7 @@ class AuthController {
     }
   }
 
-  async refresh(req, res) {
+  refresh = async (req, res) => {
     try {
       const token = req.cookies?.refreshToken;
       if (!token) throw new Error('No refresh token provided in cookies');
@@ -88,7 +88,7 @@ class AuthController {
     }
   }
 
-  async logout(req, res) {
+  logout = async (req, res) => {
     try {
       const token = req.cookies?.refreshToken;
       if (token) {
@@ -112,7 +112,7 @@ class AuthController {
       return errorResponse(res, 'Logout failed', [], 400);
     }
   }
-  async getSessions(req, res) {
+  getSessions = async (req, res) => {
     try {
       const sessions = await AuthSession.findAll({
         where: { userId: req.user.id, isActive: true },
@@ -125,7 +125,7 @@ class AuthController {
     }
   }
 
-  async logoutAll(req, res) {
+  logoutAll = async (req, res) => {
     try {
       await AuthSession.update({ isActive: false }, { where: { userId: req.user.id } });
       await AuditLog.create({
@@ -140,7 +140,7 @@ class AuthController {
     }
   }
 
-  async logoutDevice(req, res) {
+  logoutDevice = async (req, res) => {
     try {
       const sessionId = req.params.id;
       await AuthSession.update({ isActive: false }, { where: { id: sessionId, userId: req.user.id } });
@@ -154,19 +154,19 @@ class AuthController {
     }
   }
 
-  async getAll(req, res) {
+  getAll = async (req, res) => {
     return res.status(200).json({ success: true, message: 'Not Implemented' });
   }
-  async getById(req, res) {
+  getById = async (req, res) => {
     return res.status(200).json({ success: true, message: 'Not Implemented' });
   }
-  async create(req, res) {
+  create = async (req, res) => {
     return res.status(201).json({ success: true, message: 'Not Implemented' });
   }
-  async update(req, res) {
+  update = async (req, res) => {
     return res.status(200).json({ success: true, message: 'Not Implemented' });
   }
-  async delete(req, res) {
+  delete = async (req, res) => {
     return res.status(200).json({ success: true, message: 'Not Implemented' });
   }
 
