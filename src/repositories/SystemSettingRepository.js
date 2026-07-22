@@ -20,9 +20,9 @@ class SystemSettingRepository extends BaseRepository {
 
   async updateBulk(settings, transaction) {
     const promises = settings.map(setting => {
-      return this.model.update(
-        { value: setting.value, updatedBy: setting.updatedBy },
-        { where: { key: setting.key }, transaction }
+      return this.model.upsert(
+        { key: setting.key, category: setting.category, value: setting.value, updatedBy: setting.updatedBy },
+        { transaction }
       );
     });
     await Promise.all(promises);

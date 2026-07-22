@@ -23,13 +23,12 @@ class SystemSettingService {
 
     const updates = [];
     for (const data of settingsData) {
-      if (existingKeys.includes(data.key)) {
-        updates.push({
-          key: data.key,
-          value: data.value,
-          updatedBy: userId
-        });
-      }
+      updates.push({
+        key: data.key,
+        category: category,
+        value: data.value,
+        updatedBy: userId
+      });
     }
 
     if (updates.length === 0) return { message: 'No valid settings to update' };
