@@ -82,7 +82,13 @@ class AuthController {
       return successResponse(res, 'Token refreshed successfully', { accessToken: tokens.accessToken });
     } catch (error) {
       logger.error(`Refresh error: ${error.message}`);
-      // Agar refresh o'xshamasa, cookie larni tozalab tashlaymiz
+      
+      // If the error is a database error, return 500 and do NOT clear cookies
+      if (error.name === 'SequelizeConnectionError' || error.name === 'SequelizeHostNotFoundError' || error.message.includes('getaddrinfo ENOTFOUND') || error.message.includes('Sequelize')) {
+        return errorResponse(res, 'Internal server error during token refresh.', [], 500);
+      }
+
+      // Agar haqiqatan ham refresh o'xshamasa (token yaroqsiz bo'lsa), cookie larni tozalab tashlaymiz
       res.clearCookie('accessToken');
       res.clearCookie('refreshToken');
       return errorResponse(res, error.message, [], 401);

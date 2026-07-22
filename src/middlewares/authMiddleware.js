@@ -33,9 +33,18 @@ const verifyToken = async (req, res, next) => {
     req.user = decoded;
     next();
   } catch (error) {
-    logger.error(`[AUTH] Token validation failed. IP: ${req.ip}, Error: ${error.message}`);
-    // If access token expired, we still return 401. The frontend should try to refresh.
-    return errorResponse(res, 'Invalid token.', [], 401);
+    logger.error(`[AUTH] Token verification error: ${error.message} for IP: ${req.ip}`);
+    
+    if (error.name === 'TokenExpiredError') {
+      return errorResponse(res, 'Token expired. Please refresh your token.', [], 401);
+    }
+    
+    if (error.name === 'JsonWebTokenError' || error.name === 'NotBeforeError') {
+      return errorResponse(res, 'Invalid token.', [], 401);
+    }
+
+    // Database or other internal errors should not invalidate the token and log the user out
+    return errorResponse(res, 'Internal server error during authentication.', [], 500);
   }
 };
 
