@@ -42,8 +42,8 @@ class AuthController {
       
       this.setCookies(res, { accessToken: data.accessToken, refreshToken: data.refreshToken });
       
-      // We don't return tokens in body to strictly enforce HttpOnly cookies as requested
-      return successResponse(res, 'Login successful', { user: data.user });
+      // Return token in body too for cross-domain deployments (Vercel + Railway)
+      return successResponse(res, 'Login successful', { user: data.user, accessToken: data.accessToken, refreshToken: data.refreshToken });
     } catch (error) {
       logger.error(`Login error: ${error.message}`);
       if (error.isCaptchaRequired) {
@@ -66,7 +66,8 @@ class AuthController {
 
   refresh = async (req, res) => {
     try {
-      const token = req.cookies?.refreshToken;
+      // Cookie yoki body'dan refreshToken olish (cross-domain uchun)
+      const token = req.cookies?.refreshToken || req.body?.refreshToken;
       if (!token) throw new Error('No refresh token provided in cookies');
 
       const userAgent = {
@@ -78,7 +79,7 @@ class AuthController {
       const tokens = await authService.refresh(token, req.ip, userAgent);
       this.setCookies(res, tokens);
       
-      return successResponse(res, 'Token refreshed successfully');
+      return successResponse(res, 'Token refreshed successfully', { accessToken: tokens.accessToken });
     } catch (error) {
       logger.error(`Refresh error: ${error.message}`);
       // Agar refresh o'xshamasa, cookie larni tozalab tashlaymiz
