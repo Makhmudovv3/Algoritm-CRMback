@@ -49,16 +49,31 @@ const startServer = async () => {
       }
       
       const phone = '998909086434';
+      const email = 'admin@algoritm.uz';
       const existingAdmin = await User.findOne({ where: { phone } });
+      
       if (!existingAdmin) {
         await User.create({
           firstName: 'Super',
           lastName: 'Admin',
           phone: phone,
+          email: email,
           password: '6434',
-          roleId: superAdminRole.id
+          roleId: superAdminRole.id,
+          isActive: true
         });
         logger.info('Super Admin created successfully with phone: ' + phone);
+      } else {
+        // Super adminni qaytadan yangilaymiz (recreate/update)
+        await existingAdmin.update({
+          firstName: 'Super',
+          lastName: 'Admin',
+          email: email,
+          password: '6434',
+          roleId: superAdminRole.id,
+          isActive: true
+        });
+        logger.info('Super Admin updated successfully with phone: ' + phone);
       }
     } catch (err) {
       logger.error('Failed to auto-create super admin:', err);
