@@ -326,8 +326,21 @@ class TeacherController {
   async create(req, res) {
     try {
       const { fullname, phone, email, branch_id, is_active } = req.body;
-      const { User, Role } = require('../models');
+      const { User, Role, Branch } = require('../models');
       const bcrypt = require('bcrypt');
+      
+      let finalBranchId = branch_id;
+      if (!finalBranchId && req.user && req.user.branchId) {
+        finalBranchId = req.user.branchId;
+      }
+      if (!finalBranchId) {
+        const defaultBranch = await Branch.findOne();
+        if (defaultBranch) {
+          finalBranchId = defaultBranch.id;
+        } else {
+          return errorResponse(res, 'Validation Error', ['Tizimda hech qanday filial mavjud emas. Filial qo\'shing.'], 400);
+        }
+      }
 
       // Find or create User
       let user = await User.findOne({ where: { phone } });
@@ -355,14 +368,14 @@ class TeacherController {
           email: email || null,
           password: hashedPassword,
           roleId: role.id,
-          branchId: branch_id || null,
+          branchId: finalBranchId,
           isActive: is_active !== false
         });
       }
 
       const teacher = await Teacher.create({
         userId: user.id,
-        branchId: branch_id || null
+        branchId: finalBranchId
       });
 
       return successResponse(res, 'Teacher created', teacher, {}, 201);
