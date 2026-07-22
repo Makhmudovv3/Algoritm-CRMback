@@ -21,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    capacity: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
     courseId: {
       type: DataTypes.UUID,
       allowNull: false
@@ -37,13 +41,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       allowNull: false
     },
+    days_of_week: DataTypes.STRING,
+    time: DataTypes.STRING,
     schedule: DataTypes.STRING,
     status: {
       type: DataTypes.ENUM('PENDING', 'ACTIVE', 'COMPLETED', 'CANCELLED'),
       defaultValue: 'PENDING'
     },
     startDate: DataTypes.DATEONLY,
-    endDate: DataTypes.DATEONLY
+    endDate: DataTypes.DATEONLY,
+    is_active: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true
+    }
   }, {
     sequelize,
     modelName: 'Group',
