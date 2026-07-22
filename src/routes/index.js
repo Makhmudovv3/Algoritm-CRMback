@@ -97,4 +97,7 @@ router.use('/student_groups', studentGroupRoutes);
 router.use('/ratings', ratingRoutes);
 router.use('/student_notes', studentNoteRoutes);
 
+const studentTransferRoutes = require('./studentTransferRoutes');
+router.use('/student_transfers', studentTransferRoutes);
+
 module.exports = router;
