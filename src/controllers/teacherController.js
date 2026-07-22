@@ -332,7 +332,11 @@ class TeacherController {
       // Find or create User
       let user = await User.findOne({ where: { phone } });
       if (!user) {
-        const role = await Role.findOne({ where: { name: 'TEACHER' } });
+        let role = await Role.findOne({ where: { name: 'TEACHER' } });
+        if (!role) {
+          role = await Role.create({ name: 'TEACHER', description: 'O\'qituvchi' });
+        }
+
         let firstName = fullname || '';
         let lastName = '';
         if (fullname && fullname.includes(' ')) {
@@ -350,7 +354,7 @@ class TeacherController {
           phone,
           email: email || null,
           password: hashedPassword,
-          roleId: role ? role.id : null,
+          roleId: role.id,
           branchId: branch_id || null,
           isActive: is_active !== false
         });
@@ -363,7 +367,7 @@ class TeacherController {
 
       return successResponse(res, 'Teacher created', teacher, {}, 201);
     } catch (err) {
-      logger.error('Error in create:', err);
+      logger.error('Error in create teacher:', err);
       return errorResponse(res, 'Internal Server Error', [err.message], 500);
     }
   }
