@@ -329,6 +329,8 @@ class TeacherController {
       const { User, Role, Branch } = require('../models');
       const bcrypt = require('bcrypt');
       
+      const cleanPhone = phone ? '+' + phone.replace(/\D/g, '') : '';
+
       let finalBranchId = branch_id;
       if (!finalBranchId && req.user && req.user.branchId) {
         finalBranchId = req.user.branchId;
@@ -343,7 +345,7 @@ class TeacherController {
       }
 
       // Find or create User
-      let user = await User.findOne({ where: { phone } });
+      let user = await User.findOne({ where: { phone: cleanPhone } });
       if (!user) {
         let role = await Role.findOne({ where: { name: 'TEACHER' } });
         if (!role) {
@@ -364,7 +366,7 @@ class TeacherController {
         user = await User.create({
           firstName,
           lastName,
-          phone,
+          phone: cleanPhone,
           email: email || null,
           password: hashedPassword,
           roleId: role.id,
