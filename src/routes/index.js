@@ -67,21 +67,30 @@ router.use('/', callcenterRoutes);
 router.use('/settings', settingsRoutes);
 router.use('/ai', aiRoutes);
 
-// Placeholder for unmapped frontend repositories returning HTTP 501 Not Implemented
-const missingRoutes = [
-  '/audit_logs', '/call_logs', '/finance_accounts', '/pending_payments', 
-  '/payment_requests', '/payment_request_logs', '/shifts', '/daily_closings', 
-  '/permissions', '/student_groups', '/ratings', '/student_notes'
-];
+const auditRoutes = require('./auditRoutes');
+const callLogRoutes = require('./callLogRoutes');
+const financeAccountRoutes = require('./financeAccountRoutes');
+const pendingPaymentRoutes = require('./pendingPaymentRoutes');
+const paymentRequestRoutes = require('./paymentRequestRoutes');
+const paymentRequestLogRoutes = require('./paymentRequestLogRoutes');
+const shiftRoutes = require('./shiftRoutes');
+const dailyClosingRoutes = require('./dailyClosingRoutes');
+const permissionRoutes = require('./permissionRoutes');
+const studentGroupRoutes = require('./studentGroupRoutes');
+const ratingRoutes = require('./ratingRoutes');
+const studentNoteRoutes = require('./studentNoteRoutes');
 
-missingRoutes.forEach(route => {
-  router.use(route, (req, res) => {
-    res.json({
-      success: true,
-      data: [],
-      message: `Endpoint '${route}' returned default empty dataset.`
-    });
-  });
-});
+router.use('/audit_logs', auditRoutes);
+router.use('/call_logs', callLogRoutes);
+router.use('/finance_accounts', financeAccountRoutes);
+router.use('/pending_payments', pendingPaymentRoutes);
+router.use('/payment_requests', paymentRequestRoutes);
+router.use('/payment_request_logs', paymentRequestLogRoutes);
+router.use('/shifts', shiftRoutes);
+router.use('/daily_closings', dailyClosingRoutes);
+router.use('/permissions', permissionRoutes);
+router.use('/student_groups', studentGroupRoutes);
+router.use('/ratings', ratingRoutes);
+router.use('/student_notes', studentNoteRoutes);
 
 module.exports = router;

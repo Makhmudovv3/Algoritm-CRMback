@@ -43,9 +43,16 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 
+const cookieParser = require('cookie-parser');
+const xss = require('xss-clean');
+
 // Request parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+// Data sanitization against XSS
+app.use(xss());
 
 // Compression
 app.use(compression());
