@@ -40,6 +40,10 @@ const startServer = async () => {
     await sequelize.authenticate();
     logger.info('Database connection has been established successfully.');
 
+    // Sync models to database
+    await sequelize.sync({ alter: true });
+    logger.info('Database synchronized successfully.');
+
     // Auto-create super admin
     const { Role, User } = require('./models');
     try {
