@@ -3,20 +3,27 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    // Add indexes for commonly queried fields to prevent performance drops (N+1 and large scans)
-    await queryInterface.addIndex('Students', ['userId']);
-    await queryInterface.addIndex('Students', ['branchId']);
-    await queryInterface.addIndex('Payments', ['studentId']);
-    await queryInterface.addIndex('Payments', ['invoiceId']);
-    await queryInterface.addIndex('Payments', ['createdAt']);
-    await queryInterface.addIndex('Invoices', ['studentId']);
-    await queryInterface.addIndex('Groups', ['courseId']);
-    await queryInterface.addIndex('Groups', ['teacherId']);
-    await queryInterface.addIndex('Users', ['phone']);
-    await queryInterface.addIndex('Users', ['roleId']);
-    await queryInterface.addIndex('Attendances', ['studentId']);
-    await queryInterface.addIndex('Attendances', ['groupId']);
-    await queryInterface.addIndex('Attendances', ['date']);
+    const addIndexSafe = async (table, fields) => {
+      try {
+        await queryInterface.addIndex(table, fields);
+      } catch (error) {
+        console.log(`Index on ${table} for ${fields.join(', ')} might already exist. Ignoring.`);
+      }
+    };
+
+    await addIndexSafe('Students', ['userId']);
+    await addIndexSafe('Students', ['branchId']);
+    await addIndexSafe('Payments', ['studentId']);
+    await addIndexSafe('Payments', ['invoiceId']);
+    await addIndexSafe('Payments', ['createdAt']);
+    await addIndexSafe('Invoices', ['studentId']);
+    await addIndexSafe('Groups', ['courseId']);
+    await addIndexSafe('Groups', ['teacherId']);
+    await addIndexSafe('Users', ['phone']);
+    await addIndexSafe('Users', ['roleId']);
+    await addIndexSafe('Attendances', ['studentId']);
+    await addIndexSafe('Attendances', ['groupId']);
+    await addIndexSafe('Attendances', ['date']);
   },
 
   async down (queryInterface, Sequelize) {
