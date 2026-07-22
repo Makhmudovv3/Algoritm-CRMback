@@ -52,6 +52,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Data sanitization against XSS
+app.use((req, res, next) => {
+  Object.defineProperty(req, 'query', {
+    value: { ...req.query },
+    writable: true,
+    configurable: true,
+    enumerable: true,
+  });
+  next();
+});
 app.use(xss());
 
 // Compression
