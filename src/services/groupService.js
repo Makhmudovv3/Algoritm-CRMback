@@ -49,20 +49,28 @@ class GroupService extends BaseService {
   }
 
   async getAll(query, allowedFilters = [], allowedSortFields = [], include = []) {
-    const { Course, Teacher, Room, Branch } = require('../models');
+    const { Course, Teacher, Room, Branch, User } = require('../models');
     return super.getAll(query, allowedFilters, allowedSortFields, [
       { model: Course, as: 'course' },
-      { model: Teacher, as: 'teacher' },
+      { 
+        model: Teacher, 
+        as: 'teacher',
+        include: [{ model: User, as: 'user' }]
+      },
       { model: Room, as: 'room' },
       { model: Branch, as: 'branch' }
     ]);
   }
 
   async getById(id) {
-    const { Course, Teacher, Room, Branch } = require('../models');
+    const { Course, Teacher, Room, Branch, User } = require('../models');
     return super.getById(id, [
       { model: Course, as: 'course' },
-      { model: Teacher, as: 'teacher' },
+      { 
+        model: Teacher, 
+        as: 'teacher',
+        include: [{ model: User, as: 'user' }]
+      },
       { model: Room, as: 'room' },
       { model: Branch, as: 'branch' }
     ]);
