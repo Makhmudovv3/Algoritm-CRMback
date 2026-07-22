@@ -14,8 +14,8 @@ class AuthService {
       tokenVersion: user.tokenVersion || 0
     };
     
-    // Access Token: 15 daqiqa
-    const accessToken = jwt.sign(payload, process.env.JWT_SECRET || 'secret', { expiresIn: '15m' });
+    // Access Token: 24 soat
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET || 'secret', { expiresIn: '24h' });
     
     // Refresh Token: 30 kun, faqat tasodifiy string (yoki jwt). JWT qulayroq.
     const refreshToken = jwt.sign({ id: user.id, tokenVersion: user.tokenVersion || 0 }, process.env.JWT_REFRESH_SECRET || 'refresh_secret', { expiresIn: '30d' });
