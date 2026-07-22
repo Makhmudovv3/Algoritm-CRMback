@@ -327,7 +327,7 @@ class TeacherController {
     try {
       const { fullname, phone, email, branch_id, is_active } = req.body;
       const { User, Role } = require('../models');
-      const bcrypt = require('bcryptjs');
+      const bcrypt = require('bcrypt');
 
       // Find or create User
       let user = await User.findOne({ where: { phone } });
