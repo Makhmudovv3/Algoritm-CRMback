@@ -9,9 +9,10 @@ class BaseController {
 
   getAll = async (req, res) => {
     try {
+      const query = { ...req.query };
       // Apply branch isolation for managers
       if (req.user && (req.user.role === 'Manager' || req.user.role === 'BRANCH_MANAGER') && req.user.branchId) {
-        req.query.branchId = req.user.branchId;
+        query.branchId = req.user.branchId;
         if (!this.allowedFilters) this.allowedFilters = [];
         if (!this.allowedFilters.includes('branchId')) {
           this.allowedFilters.push('branchId');
@@ -20,7 +21,7 @@ class BaseController {
       
       // Allow overriding allowed filters and sort fields via child controllers if needed
       // By default we pass generic filters from child or empty array
-      const result = await this.service.getAll(req.query, this.allowedFilters || [], this.allowedSortFields || [], this.includeRelations || []);
+      const result = await this.service.getAll(query, this.allowedFilters || [], this.allowedSortFields || [], this.includeRelations || []);
       return successResponse(res, `${this.entityName}s retrieved successfully`, result.data, result.meta);
     } catch (error) {
       logger.error(`Error in ${this.entityName} getAll: ${error.message}`);
